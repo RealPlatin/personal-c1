@@ -1,7 +1,32 @@
-languages, frameworks, and testing libraries the project uses:
+## Tech Stack
 
+**Runtime & Framework**
+- Next.js 16 (App Router, Turbopack, static export)
+- React 19
+- TypeScript 5 (strict mode, `@/*` path alias → `src/`)
 
+**Styling**
+- Tailwind CSS v4 (via `@tailwindcss/postcss`)
+- CSS custom properties for design tokens (in `globals.css`)
+- Google Fonts: Playfair Display, Inter, JetBrains Mono
 
+**3D / Animation**
+- three.js v0.183
+- @react-three/fiber v9
+- @react-three/drei v10
+- framer-motion v12
+
+**Content / MDX**
+- next-mdx-remote v6 (server-side rendering of MDX)
+- @next/mdx + @mdx-js/loader + @mdx-js/react (page-level MDX support)
+- gray-matter (frontmatter parsing)
+- MDX posts live in `content/posts/*.mdx`
+
+**Linting / Types**
+- ESLint 9 with eslint-config-next
+- @types/three, @types/react, @types/node
+
+**No testing library is configured.**
 
 Before writing any code or answering any questions, read the current state of tasks/todo.md and tasks/lessons.md
 
