@@ -1,56 +1,92 @@
 "use client";
 
-import { useRef } from "react";
+import { useRef, useMemo } from "react";
 import { Canvas, useFrame } from "@react-three/fiber";
-import { Environment, Float, MeshTransmissionMaterial, Torus } from "@react-three/drei";
+import { OrbitControls } from "@react-three/drei";
 import * as THREE from "three";
 
-function GlassTorus() {
-  const ref = useRef<THREE.Mesh>(null);
+const NODE_COUNT = 20;
+const CONNECT_DIST = 2.0;
+const BOUNDS: [number, number, number] = [3.0, 2.0, 1.5];
 
-  useFrame((state) => {
-    if (!ref.current) return;
-    ref.current.rotation.x = state.clock.elapsedTime * 0.15;
-    ref.current.rotation.y = state.clock.elapsedTime * 0.22;
+function NetworkCluster() {
+  const pointsRef = useRef<THREE.Points>(null);
+  const linesRef = useRef<THREE.LineSegments>(null);
+
+  const nodes = useMemo(() =>
+    Array.from({ length: NODE_COUNT }, () => ({
+      pos: new THREE.Vector3(
+        (Math.random() - 0.5) * BOUNDS[0] * 2,
+        (Math.random() - 0.5) * BOUNDS[1] * 2,
+        (Math.random() - 0.5) * BOUNDS[2] * 2,
+      ),
+      vel: new THREE.Vector3(
+        (Math.random() - 0.5) * 0.004,
+        (Math.random() - 0.5) * 0.004,
+        (Math.random() - 0.5) * 0.003,
+      ),
+    })), []);
+
+  const MAX_PAIRS = NODE_COUNT * (NODE_COUNT - 1);
+
+  const pointBuffer = useMemo(() => new Float32Array(NODE_COUNT * 3), []);
+  const pointGeo = useMemo(() => {
+    const geo = new THREE.BufferGeometry();
+    geo.setAttribute("position", new THREE.BufferAttribute(pointBuffer, 3));
+    return geo;
+  }, [pointBuffer]);
+
+  const lineBuffer = useMemo(() => new Float32Array(MAX_PAIRS * 6), []);
+  const lineGeo = useMemo(() => {
+    const geo = new THREE.BufferGeometry();
+    geo.setAttribute("position", new THREE.BufferAttribute(lineBuffer, 3));
+    return geo;
+  }, [lineBuffer]);
+
+  useFrame(() => {
+    // Update node positions
+    for (let i = 0; i < NODE_COUNT; i++) {
+      const node = nodes[i];
+      node.pos.add(node.vel);
+      ([0, 1, 2] as const).forEach((axis) => {
+        const b = BOUNDS[axis];
+        if (node.pos.getComponent(axis) > b) {
+          node.pos.setComponent(axis, b);
+          node.vel.setComponent(axis, -Math.abs(node.vel.getComponent(axis)));
+        } else if (node.pos.getComponent(axis) < -b) {
+          node.pos.setComponent(axis, -b);
+          node.vel.setComponent(axis, Math.abs(node.vel.getComponent(axis)));
+        }
+      });
+      pointBuffer[i * 3]     = node.pos.x;
+      pointBuffer[i * 3 + 1] = node.pos.y;
+      pointBuffer[i * 3 + 2] = node.pos.z;
+    }
+    pointGeo.attributes.position.needsUpdate = true;
+
+    // Update connection lines
+    let idx = 0;
+    for (let i = 0; i < NODE_COUNT; i++) {
+      for (let j = i + 1; j < NODE_COUNT; j++) {
+        if (nodes[i].pos.distanceTo(nodes[j].pos) < CONNECT_DIST) {
+          lineBuffer[idx++] = nodes[i].pos.x; lineBuffer[idx++] = nodes[i].pos.y; lineBuffer[idx++] = nodes[i].pos.z;
+          lineBuffer[idx++] = nodes[j].pos.x; lineBuffer[idx++] = nodes[j].pos.y; lineBuffer[idx++] = nodes[j].pos.z;
+        }
+      }
+    }
+    lineGeo.setDrawRange(0, idx / 3);
+    lineGeo.attributes.position.needsUpdate = true;
   });
 
   return (
-    <Float speed={1.4} rotationIntensity={0.4} floatIntensity={0.6}>
-      <Torus ref={ref} args={[1.4, 0.45, 64, 128]}>
-        <MeshTransmissionMaterial
-          backside
-          samples={8}
-          thickness={0.3}
-          roughness={0.05}
-          transmission={1}
-          ior={1.5}
-          chromaticAberration={0.06}
-          anisotropy={0.3}
-          distortion={0.4}
-          distortionScale={0.5}
-          temporalDistortion={0.1}
-          color="#d4c4a8"
-        />
-      </Torus>
-    </Float>
-  );
-}
-
-function SmallSphere({ position }: { position: [number, number, number] }) {
-  const ref = useRef<THREE.Mesh>(null);
-
-  useFrame((state) => {
-    if (!ref.current) return;
-    ref.current.rotation.y = state.clock.elapsedTime * 0.5;
-  });
-
-  return (
-    <Float speed={2} rotationIntensity={0.8} floatIntensity={1}>
-      <mesh ref={ref} position={position}>
-        <icosahedronGeometry args={[0.35, 0]} />
-        <meshStandardMaterial color="#c8602a" roughness={0.1} metalness={0.8} />
-      </mesh>
-    </Float>
+    <>
+      <points ref={pointsRef} geometry={pointGeo}>
+        <pointsMaterial color="#c8602a" size={0.06} sizeAttenuation={true} />
+      </points>
+      <lineSegments ref={linesRef} geometry={lineGeo}>
+        <lineBasicMaterial color="#c8602a" transparent opacity={0.3} />
+      </lineSegments>
+    </>
   );
 }
 
@@ -58,17 +94,23 @@ export default function HeroScene() {
   return (
     <Canvas
       camera={{ position: [0, 0, 5], fov: 45 }}
-      style={{ width: "100%", height: "100%" }}
+      style={{ width: "100%", height: "100%", cursor: "grab" }}
       dpr={[1, 2]}
     >
       <color attach="background" args={["#f5f0e8"]} />
-      <ambientLight intensity={0.5} />
-      <directionalLight position={[5, 5, 5]} intensity={1.5} color="#fff8f0" />
-      <directionalLight position={[-5, -3, -5]} intensity={0.3} color="#c8d4e8" />
-      <GlassTorus />
-      <SmallSphere position={[2.5, 1.2, 0]} />
-      <SmallSphere position={[-2.8, -0.8, -0.5]} />
-      <Environment preset="studio" />
+      <NetworkCluster />
+      <OrbitControls
+        enableZoom={false}
+        enablePan={false}
+        autoRotate={true}
+        autoRotateSpeed={0.4}
+        minPolarAngle={Math.PI / 3}
+        maxPolarAngle={(Math.PI * 2) / 3}
+        minAzimuthAngle={-Math.PI / 3}
+        maxAzimuthAngle={Math.PI / 3}
+        dampingFactor={0.08}
+        enableDamping={true}
+      />
     </Canvas>
   );
 }

@@ -1,66 +1,300 @@
-import Link from "next/link";
-import { getAllPosts } from "@/lib/posts";
+const substackPosts = [
+  {
+    title: "Oil, Drones, and Geopolitical Risk",
+    description: "How energy security and the Middle East shape the next decade.",
+    href: "https://marcvg1.substack.com",
+  },
+  {
+    title: "Grünheide: Environmental Protection or Ideological Scapegoat?",
+    description: "Fact-based analysis of the Tesla Gigafactory expansion debate.",
+    href: "https://marcvg1.substack.com",
+  },
+  {
+    title: "The Bureaucratic Monster",
+    description: "Why bureaucracy costs Germany €140B annually.",
+    href: "https://marcvg1.substack.com",
+  },
+  {
+    title: "The Missed Revolution",
+    description: "The tech deficit in AI and Industry 4.0.",
+    href: "https://marcvg1.substack.com",
+  },
+  {
+    title: "Deindustrialization in Real Time",
+    description: "Energy prices and the relocation of European industry.",
+    href: "https://marcvg1.substack.com",
+  },
+];
+
+const researchPapers = [
+  {
+    title: "The Geopolitics of Microchips",
+    year: "2025", year2: null, grade: null, level: "High School",
+    file: null, file2: "/papers/microchip-geopolitics.pptx",
+  },
+  {
+    title: "Life Cycle Analysis: Electric Vehicles as a Sustainable Alternative?",
+    year: "2025", year2: null, grade: null, level: "High School",
+    file: "/papers/ev-analysis.pdf", file2: "/papers/ev-presentation.pptx",
+  },
+  {
+    title: "Secure Your Future: Strategies for Private Retirement Planning",
+    year: "2025", year2: null, grade: null, level: "High School",
+    file: "/papers/retirement-strategies.pptx", file2: null,
+  },
+  {
+    title: "Bitcoin: Technical Foundation and Economic Implications",
+    year: "2018", year2: "2025", grade: "Grade 8", level: "Middle School",
+    file: "/papers/bitcoin.docx", file2: "/papers/bitcoin-2025.pptx",
+  },
+  {
+    title: "CRISPR & Genetic Engineering: Opportunities and Ethics",
+    year: "2020", year2: null, grade: "Grade 10", level: "Middle School",
+    file: "/papers/crispr.pdf", file2: "/papers/crispr.pptx",
+  },
+  {
+    title: "Hong Kong Protests: Democracy, Resistance & Geopolitics",
+    year: "2020", year2: null, grade: "Grade 10", level: "Middle School",
+    file: "/papers/hongkong-protests.pptx", file2: null,
+  },
+  {
+    title: "Tesla: Innovation, Vision & the Future of Mobility",
+    year: "2020", year2: null, grade: "Grade 10", level: "Middle School",
+    file: "/papers/tesla.pptx", file2: null,
+  },
+  {
+    title: "SDG 7: Affordable and Clean Energy",
+    year: "2020", year2: null, grade: "Grade 10", level: "Middle School",
+    file: "/papers/ewg-energy.docx", file2: null,
+  },
+  {
+    title: "Elon Musk: Innovative Entrepreneurship & Strategic Vision",
+    year: "2019", year2: null, grade: "Grade 9", level: "Middle School",
+    file: "/papers/elon-musk.pdf", file2: "/papers/elon-musk.pptx",
+  },
+];
 
 export default function WritingPage() {
-  const posts = getAllPosts();
-
   return (
     <div className="container section">
       <p className="label" style={{ marginBottom: "0.75rem" }}>Writing</p>
-      <h1 style={{ marginBottom: "3.5rem" }}>
-        Notes &amp; <em style={{ color: "var(--accent)" }}>essays</em>
-      </h1>
+      <div style={{
+        display: "flex",
+        justifyContent: "space-between",
+        alignItems: "baseline",
+        flexWrap: "wrap",
+        gap: "1rem",
+        marginBottom: "3.5rem",
+      }}>
+        <h1 style={{ margin: 0 }}>
+          Essays &amp; <em style={{ color: "var(--accent)" }}>Analysis</em>
+        </h1>
+        <a
+          href="https://marcvg1.substack.com"
+          target="_blank"
+          rel="noopener noreferrer"
+          style={{
+            fontFamily: "var(--font-mono)",
+            fontSize: "0.72rem",
+            letterSpacing: "0.1em",
+            textTransform: "uppercase",
+            color: "var(--muted)",
+          }}
+        >
+          Substack →
+        </a>
+      </div>
 
-      {posts.length === 0 ? (
-        <p>No posts yet — come back soon.</p>
-      ) : (
-        <ul style={{ listStyle: "none", padding: 0, margin: 0 }}>
-          {posts.map((post) => (
-            <li
-              key={post.slug}
-              style={{
-                borderTop: "1px solid var(--border)",
-                padding: "2rem 0",
-              }}
+      {/* Substack Posts */}
+      <ul style={{ listStyle: "none", padding: 0, margin: "0 0 2.5rem" }}>
+        {substackPosts.map((post) => (
+          <li
+            key={post.title}
+            style={{
+              borderTop: "1px solid var(--border)",
+              padding: "2rem 0",
+            }}
+          >
+            <a
+              href={post.href}
+              target="_blank"
+              rel="noopener noreferrer"
+              style={{ display: "block" }}
             >
-              <Link href={`/writing/${post.slug}`} style={{ display: "block" }}>
-                <div
+              <div
+                style={{
+                  display: "flex",
+                  justifyContent: "space-between",
+                  alignItems: "baseline",
+                  gap: "1rem",
+                  flexWrap: "wrap",
+                  marginBottom: "0.5rem",
+                }}
+              >
+                <h3
                   style={{
-                    display: "flex",
-                    justifyContent: "space-between",
-                    alignItems: "baseline",
-                    gap: "1rem",
-                    flexWrap: "wrap",
-                    marginBottom: "0.5rem",
+                    margin: 0,
+                    fontSize: "1.2rem",
+                    transition: "color 0.2s",
                   }}
                 >
-                  <h3
-                    style={{
-                      margin: 0,
-                      fontSize: "1.25rem",
-                      transition: "color 0.2s",
-                    }}
-                  >
-                    {post.title}
-                  </h3>
+                  {post.title}
+                </h3>
+                <span
+                  style={{
+                    fontFamily: "var(--font-mono)",
+                    fontSize: "0.65rem",
+                    letterSpacing: "0.1em",
+                    textTransform: "uppercase",
+                    color: "var(--accent)",
+                    flexShrink: 0,
+                  }}
+                >
+                  Substack ↗
+                </span>
+              </div>
+              <p style={{ margin: 0, maxWidth: "60ch", fontSize: "0.9rem" }}>{post.description}</p>
+            </a>
+          </li>
+        ))}
+        <li style={{ borderTop: "1px solid var(--border)", padding: "1.5rem 0" }}>
+          <a
+            href="https://marcvg1.substack.com"
+            target="_blank"
+            rel="noopener noreferrer"
+            style={{
+              fontFamily: "var(--font-mono)",
+              fontSize: "0.75rem",
+              letterSpacing: "0.1em",
+              textTransform: "uppercase",
+              color: "var(--accent)",
+            }}
+          >
+            Read all on Substack →
+          </a>
+        </li>
+      </ul>
+
+      {/* Research & Papers */}
+      <p className="label" style={{ marginBottom: "2rem" }}>Research &amp; Papers</p>
+      <div
+        style={{
+          display: "grid",
+          gridTemplateColumns: "repeat(auto-fill, minmax(min(100%, 380px), 1fr))",
+          gap: "1.25rem",
+        }}
+      >
+        {researchPapers.map((paper) => (
+          <div
+            key={paper.title}
+            style={{
+              padding: "1.75rem",
+              border: "1px solid var(--border)",
+              borderRadius: "0.75rem",
+              background: "rgba(26,20,16,0.015)",
+              display: "flex",
+              flexDirection: "column",
+            }}
+          >
+            {/* School badge + level + grade */}
+            <div style={{ display: "flex", gap: "0.4rem", marginBottom: "0.75rem", flexWrap: "wrap" }}>
+              {[
+                "School Project",
+                paper.level,
+                paper.grade,
+              ].filter(Boolean).map((tag) => (
+                <span key={tag} style={{
+                  fontFamily: "var(--font-mono)",
+                  fontSize: "0.58rem",
+                  letterSpacing: "0.08em",
+                  textTransform: "uppercase",
+                  color: "var(--muted)",
+                  background: "rgba(26,20,16,0.05)",
+                  border: "1px solid var(--border)",
+                  padding: "0.15rem 0.5rem",
+                  borderRadius: "1rem",
+                  display: "inline-flex",
+                  alignItems: "center",
+                  justifyContent: "center",
+                }}>
+                  {tag}
+                </span>
+              ))}
+            </div>
+            <div
+              style={{
+                display: "flex",
+                justifyContent: "space-between",
+                alignItems: "flex-start",
+                gap: "1rem",
+              }}
+            >
+              <span
+                style={{
+                  fontFamily: "var(--font-display)",
+                  fontWeight: 700,
+                  fontSize: "1.05rem",
+                  color: "var(--fg)",
+                  lineHeight: 1.4,
+                }}
+              >
+                {paper.title}
+              </span>
+              <div style={{ display: "flex", gap: "0.4rem", flexShrink: 0 }}>
+                {[paper.year, paper.year2].filter(Boolean).map((y) => (
                   <span
+                    key={y}
                     style={{
                       fontFamily: "var(--font-mono)",
-                      fontSize: "0.72rem",
-                      color: "var(--muted)",
+                      fontSize: "0.62rem",
                       letterSpacing: "0.08em",
-                      flexShrink: 0,
+                      color: "var(--muted)",
+                      border: "1px solid var(--border)",
+                      padding: "0.15rem 0.5rem",
+                      borderRadius: "1rem",
+                      whiteSpace: "nowrap",
                     }}
                   >
-                    {post.date}
+                    {y}
                   </span>
-                </div>
-                <p style={{ margin: 0, maxWidth: "60ch" }}>{post.description}</p>
-              </Link>
-            </li>
-          ))}
-        </ul>
-      )}
+                ))}
+              </div>
+            </div>
+            <div style={{ display: "flex", gap: "1rem", marginTop: "auto", paddingTop: "1rem", flexWrap: "wrap" }}>
+              {paper.file && (
+                <a
+                  href={paper.file}
+                  download
+                  style={{
+                    fontFamily: "var(--font-mono)",
+                    fontSize: "0.62rem",
+                    letterSpacing: "0.08em",
+                    textTransform: "uppercase",
+                    color: "var(--accent)",
+                  }}
+                >
+                  {paper.file2 ? "Text ↓" : "Download ↓"}
+                </a>
+              )}
+              {paper.file2 && (
+                <a
+                  href={paper.file2}
+                  download
+                  style={{
+                    fontFamily: "var(--font-mono)",
+                    fontSize: "0.62rem",
+                    letterSpacing: "0.08em",
+                    textTransform: "uppercase",
+                    color: "var(--accent)",
+                  }}
+                >
+                  Presentation ↓
+                </a>
+              )}
+            </div>
+          </div>
+        ))}
+      </div>
     </div>
   );
 }

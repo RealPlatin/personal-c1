@@ -30,7 +30,7 @@ export default function Hero() {
           transition={{ duration: 0.5 }}
           style={{ marginBottom: "1rem" }}
         >
-          Product · Engineering · Design
+          Business Informatics · Finance · Economics
         </motion.p>
 
         <motion.h1
@@ -50,8 +50,7 @@ export default function Hero() {
           transition={{ duration: 0.6, delay: 0.25 }}
           style={{ fontSize: "1.1rem", lineHeight: 1.7, marginBottom: "2.5rem" }}
         >
-          I build thoughtful digital products — exploring the intersection of
-          code, craft, and curiosity.
+          Technology is the new leverage. From enterprise infrastructure to M&amp;A intelligence.
         </motion.p>
 
         <motion.div

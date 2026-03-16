@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>ASCII Banner Generator</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <!-- Hidden canvas for image-to-ASCII pixel sampling -->
+  <canvas id="offscreenCanvas" style="display:none"></canvas>
+
+  <div class="app">
+    <header class="app-header">
+      <div class="brand">
+        <span class="brand-mark"></span>
+        <span class="brand-name" id="brandName">ASCII-Generator Edition | Marc von Gehlen</span>
+      </div>
+      <p class="brand-sub">ASCII Edition — LinkedIn  1584 × 396 px</p>
+    </header>
+
+    <main class="canvas-wrapper">
+      <div class="canvas-container">
+        <canvas id="bannerCanvas" width="1584" height="396"></canvas>
+      </div>
+    </main>
+
+    <aside class="control-panel">
+
+      <!-- FORMAT ─────────────────────────────────── -->
+      <section class="panel-section">
+        <h3 class="section-title">Format</h3>
+        <div class="field-group">
+          <label class="field-label">Social Media Preset</label>
+          <select class="field-select" id="formatSelect">
+            <option value="linkedin">LinkedIn — 1584 × 396</option>
+            <option value="twitter">Twitter/X — 1500 × 500</option>
+            <option value="facebook">Facebook — 851 × 315</option>
+            <option value="youtube">YouTube — 2560 × 1440</option>
+          </select>
+        </div>
+      </section>
+
+      <!-- THEME ─────────────────────────────────── -->
+      <section class="panel-section">
+        <div class="section-title-row">
+          <h3 class="section-title">Theme</h3>
+          <button class="legend-btn" id="legendBtn" title="Theme meanings" aria-expanded="false">?</button>
+        </div>
+        <div class="theme-legend hidden" id="themeLegend">
+          <div class="legend-item">
+            <span class="legend-key">/ \ _ Chart</span>
+            <span class="legend-val">Capital Market Dynamics &amp; Growth</span>
+          </div>
+          <div class="legend-item">
+            <span class="legend-key"># . + Map</span>
+            <span class="legend-val">Global Logistics &amp; Geopolitics</span>
+          </div>
+          <div class="legend-item">
+            <span class="legend-key">H | [ Skyline</span>
+            <span class="legend-val">Industrial Infrastructure &amp; Real Estate</span>
+          </div>
+          <div class="legend-item">
+            <span class="legend-key">~ - ~ Banner</span>
+            <span class="legend-val">Strategic Perspective &amp; Vision</span>
+          </div>
+        </div>
+        <div class="theme-grid">
+          <button class="theme-btn active" data-theme="chart">
+            <span class="theme-icon">/ \ _</span>
+            <span class="theme-label">The Chart</span>
+          </button>
+          <button class="theme-btn" data-theme="map">
+            <span class="theme-icon"># . +</span>
+            <span class="theme-label">The Map</span>
+          </button>
+          <button class="theme-btn" data-theme="skyline">
+            <span class="theme-icon">H | [</span>
+            <span class="theme-label">The Skyline</span>
+          </button>
+          <button class="theme-btn" data-theme="banner">
+            <span class="theme-icon">~ - ~</span>
+            <span class="theme-label">The Banner</span>
+          </button>
+          <button class="theme-btn" data-theme="ascii">
+            <span class="theme-icon">@ # .</span>
+            <span class="theme-label">ASCII Upload</span>
+          </button>
+        </div>
+      </section>
+
+      <!-- TEXT ──────────────────────────────────── -->
+      <section class="panel-section">
+        <h3 class="section-title">Text</h3>
+        <div class="field-group">
+          <label class="field-label">Brand / Name</label>
+          <input class="field-input" id="brandText" type="text" placeholder="Your Brand" maxlength="24" />
+        </div>
+        <div class="field-group">
+          <label class="field-label">Tagline</label>
+          <input class="field-input" id="taglineText" type="text" placeholder="Your tagline." maxlength="52" />
+        </div>
+        <div class="field-group">
+          <label class="field-label">Text Alignment</label>
+          <div class="toggle-group">
+            <button class="toggle-btn active" data-align="left">Left</button>
+            <button class="toggle-btn" data-align="center">Center</button>
+            <button class="toggle-btn" data-align="right">Right</button>
+          </div>
+        </div>
+        <div class="field-group">
+          <label class="field-label">Tagline Position</label>
+          <select class="field-select" id="tagPos">
+            <option value="default">Theme default</option>
+            <option value="tl">↖ Top left</option>
+            <option value="tc">↑ Top center</option>
+            <option value="tr">↗ Top right</option>
+            <option value="bl">↙ Bottom left</option>
+            <option value="bc">↓ Bottom center</option>
+            <option value="br">↘ Bottom right</option>
+          </select>
+        </div>
+      </section>
+
+      <!-- STYLE ─────────────────────────────────── -->
+      <section class="panel-section">
+        <h3 class="section-title">Style</h3>
+        <div class="color-row">
+          <label class="color-label">Background</label>
+          <input type="color" id="bgColor" value="#f4f2eb" class="color-input" />
+        </div>
+        <div class="color-row">
+          <label class="color-label">Ink / Text</label>
+          <input type="color" id="inkColor" value="#1c1b18" class="color-input" />
+        </div>
+        <div class="color-row">
+          <label class="color-label">ASCII Characters</label>
+          <input type="color" id="asciiCharColor" value="#1c1b18" class="color-input" />
+        </div>
+        <div class="color-row">
+          <label class="color-label">Graphic Elements</label>
+          <input type="color" id="accentColor" value="#c86440" class="color-input" />
+        </div>
+        <div class="field-group">
+          <label class="field-label">Brand Font</label>
+          <div class="toggle-group">
+            <button class="toggle-btn font-btn active" data-font="serif">Serif</button>
+            <button class="toggle-btn font-btn" data-font="sans">Sans</button>
+            <button class="toggle-btn font-btn" data-font="mono">Mono</button>
+          </div>
+        </div>
+        <div class="field-group">
+          <label class="field-label">Export Quality</label>
+          <div class="toggle-group">
+            <button class="toggle-btn scale-btn" data-scale="1">1×</button>
+            <button class="toggle-btn scale-btn active" data-scale="2">2×</button>
+            <button class="toggle-btn scale-btn" data-scale="3">3×</button>
+            <button class="toggle-btn scale-btn" data-scale="4">4×</button>
+          </div>
+        </div>
+      </section>
+
+      <!-- CHART OPTIONS (shown for chart theme) ── -->
+      <section class="panel-section theme-opts hidden" id="chartOptions">
+        <h3 class="section-title">Hybrid Finance Engine</h3>
+        <div class="field-group">
+          <label class="field-label">
+            Ticker Symbol
+            <span class="field-hint">BTC · AAPL · TSLA…</span>
+          </label>
+          <div class="ticker-row">
+            <input class="field-input" id="tickerInput" type="text"
+              placeholder="e.g. BTC" maxlength="8"
+              style="text-transform:uppercase;font-family:var(--font-mono)" />
+            <span class="ticker-status" id="tickerStatus" title="Fetch status"></span>
+          </div>
+          <p class="export-note">Crypto via CoinGecko · Stocks via Yahoo Finance</p>
+        </div>
+      </section>
+
+      <!-- MAP OPTIONS (shown for map theme) ────── -->
+      <section class="panel-section theme-opts hidden" id="mapOptions">
+        <h3 class="section-title">Map Options</h3>
+        <div class="field-group">
+          <label class="field-label">Map Side</label>
+          <div class="toggle-group">
+            <button class="toggle-btn map-side-btn active" data-side="right">Map Right</button>
+            <button class="toggle-btn map-side-btn" data-side="left">Map Left</button>
+          </div>
+        </div>
+      </section>
+
+      <!-- BANNER OPTIONS (shown for banner theme) ─ -->
+      <section class="panel-section theme-opts hidden" id="bannerOptions">
+        <h3 class="section-title">Banner Options</h3>
+        <div class="field-group">
+          <label class="field-label">Shape</label>
+          <div class="toggle-group">
+            <button class="toggle-btn banner-shape-btn active" data-shape="airplane">✈ Airplane</button>
+            <button class="toggle-btn banner-shape-btn" data-shape="balloon">🎈 Balloon</button>
+          </div>
+        </div>
+      </section>
+
+      <!-- ASCII OPTIONS (shown for ascii theme) ── -->
+      <section class="panel-section theme-opts hidden" id="asciiOptions">
+        <h3 class="section-title">ASCII Upload</h3>
+        <div class="field-group">
+          <label class="field-label">Source Image</label>
+          <label class="upload-btn" for="imageUpload">Choose Image…</label>
+          <input type="file" id="imageUpload" accept="image/*" style="display:none" />
+          <p class="export-note" id="uploadNote">No image loaded yet</p>
+        </div>
+      </section>
+
+      <!-- VARIATION ─────────────────────────────── -->
+      <section class="panel-section" id="variationSection">
+        <h3 class="section-title">Variation</h3>
+        <div id="seedSection">
+          <div class="field-group">
+            <label class="field-label">Seed <span class="seed-value" id="seedDisplay">42</span></label>
+            <input class="range-input" id="seedSlider" type="range" min="0" max="999" value="42" />
+          </div>
+          <button class="btn-secondary" id="randomize">↺ Randomize</button>
+        </div>
+      </section>
+
+      <!-- EXPORT ─────────────────────────────────── -->
+      <section class="panel-section export-section">
+        <button class="btn-primary" id="downloadBtn">
+          <svg width="14" height="14" viewBox="0 0 16 16" fill="none">
+            <path d="M8 1v9M4 7l4 4 4-4M2 13h12" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+          Download PNG
+        </button>
+        <p class="export-note" id="exportNote">2× · 3168 × 792 px</p>
+      </section>
+
+    </aside>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
