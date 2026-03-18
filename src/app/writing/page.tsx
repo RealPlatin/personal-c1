@@ -62,7 +62,7 @@ type FeaturedPaper = {
 const featuredPapers: FeaturedPaper[] = [
   {
     title: "The Geopolitics of Microchips",
-    year: "2025", year2: null, grade: null, level: "Gymnasium",
+    year: "2025", year2: null, grade: null, level: "BKFH",
     file: null, file2: "/papers/microchip-geopolitics.pptx",
     cardId: null,
     subtitle: "Geopolitical Analysis | BKFH",
@@ -71,16 +71,16 @@ const featuredPapers: FeaturedPaper[] = [
   },
   {
     title: "Life Cycle Analysis: Electric Vehicles as a Sustainable Alternative?",
-    year: "2025", year2: null, grade: null, level: "Vocational College",
+    year: "2025", year2: null, grade: null, level: "BKFH",
     file: "/papers/Projektarbeit E-Autos Marc von Gehlen.pdf", file2: "/papers/ev-presentation.pptx",
     cardId: "research-ev",
-    subtitle: "Life Cycle Analysis | Vocational College",
+    subtitle: "Life Cycle Analysis | BKFH",
     description: "Scientific project paper on the ecological footprint of electric vehicles. In-depth investigation of the entire life cycle – from lithium extraction to modern recycling processes.",
     buttons: null,
   },
   {
     title: "Secure Your Future: Strategies for Private Retirement Planning",
-    year: "2025", year2: null, grade: null, level: "Gymnasium",
+    year: "2025", year2: null, grade: null, level: "BKFH",
     file: "/papers/Sicher_in_die_Zukunft.pptx", file2: null,
     cardId: null,
     subtitle: "Economics Project | Collaboration with Lea",
@@ -89,10 +89,10 @@ const featuredPapers: FeaturedPaper[] = [
   },
   {
     title: "Bitcoin: Technical Foundation & Economic Implications",
-    year: "2018", year2: "2025", grade: null, level: "Gymnasium",
+    year: "2018", year2: "2025", grade: null, level: "BKFH",
     file: null, file2: null,
     cardId: null, subtitle: null,
-    description: "A two-stage analysis of blockchain technology: spanning from initial economic classification to a detailed technical examination as part of a GFS (Grade 12) at a German Gymnasium.",
+    description: "A two-stage analysis of blockchain technology: spanning from initial economic classification to a detailed technical examination as part of a GFS (Grade 8) at a German Middleschool.",
     buttons: [
       { label: "Presentation 1 (Basics) ↓", href: "/papers/bitcoin-2025.pptx" },
       { label: "Presentation 2 (Technical GFS) ↓", href: "/papers/Bitcoin.pptx" },
