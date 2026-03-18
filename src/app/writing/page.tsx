@@ -14,11 +14,6 @@ export const metadata: Metadata = {
 
 const substackPosts = [
   {
-    title: "The German Findings: An Analysis of the Creeping Decline",
-    description: "From industrial hegemony to industrial museum — the collapse of Germany's economic triad.",
-    href: "https://open.substack.com/pub/marcvg1/p/der-deutsche-befund-eine-analyse",
-  },
-  {
     title: "Oil, Drones, and Geopolitical Risk",
     description: "How energy security and the Middle East shape the next decade.",
     href: "https://marcvg1.substack.com/p/ol-drohnen-und-geopolitische-risiken",
@@ -42,6 +37,11 @@ const substackPosts = [
     title: "Deindustrialization in Real Time",
     description: "Energy prices and the relocation of European industry.",
     href: "https://open.substack.com/pub/marcvg1/p/teil-2-deindustrialisierung-in-echtzeit",
+  },
+  {
+    title: "The German Findings: An Analysis of the Creeping Decline",
+    description: "From industrial hegemony to industrial museum — the collapse of Germany's economic triad.",
+    href: "https://open.substack.com/pub/marcvg1/p/der-deutsche-befund-eine-analyse",
   },
 ];
 
