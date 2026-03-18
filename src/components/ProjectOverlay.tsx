@@ -16,6 +16,8 @@ export type Project = {
   showWorkflow?: boolean;
   archivalEvidence?: {
     role: string;
+    team?: string[];
+    myContributions?: string[];
     figures: { label: string; caption: string; image?: string }[];
     validationNote: string;
   };
@@ -240,28 +242,45 @@ export default function ProjectOverlay({
                   Project Evidence
                 </div>
 
-                {/* Role */}
-                <div style={{
-                  display: "flex",
-                  gap: "0.5rem",
-                  alignItems: "baseline",
-                  marginBottom: "1rem",
-                  flexWrap: "wrap",
-                }}>
-                  <span style={{
-                    fontFamily: "var(--font-mono)",
-                    fontSize: "0.62rem",
-                    letterSpacing: "0.08em",
-                    textTransform: "uppercase",
-                    color: "var(--muted)",
-                    flexShrink: 0,
-                  }}>Role</span>
-                  <span style={{
-                    fontFamily: "var(--font-mono)",
-                    fontSize: "0.72rem",
-                    color: "var(--fg)",
-                    letterSpacing: "0.03em",
-                  }}>{project.archivalEvidence.role}</span>
+                {/* Team & Role */}
+                <div style={{ display: "flex", flexDirection: "column", gap: "0.55rem", marginBottom: "1.1rem" }}>
+                  {project.archivalEvidence.team && (
+                    <div style={{ display: "flex", gap: "0.6rem", flexWrap: "wrap", alignItems: "baseline" }}>
+                      <span style={{
+                        fontFamily: "var(--font-mono)", fontSize: "0.6rem", letterSpacing: "0.08em",
+                        textTransform: "uppercase", color: "var(--muted)", flexShrink: 0,
+                      }}>Team</span>
+                      <span style={{ fontSize: "0.82rem", color: "var(--muted)", lineHeight: 1.5 }}>
+                        {project.archivalEvidence.team.join(", ")}
+                      </span>
+                    </div>
+                  )}
+                  <div style={{ display: "flex", gap: "0.6rem", flexWrap: "wrap", alignItems: "baseline" }}>
+                    <span style={{
+                      fontFamily: "var(--font-mono)", fontSize: "0.6rem", letterSpacing: "0.08em",
+                      textTransform: "uppercase", color: "var(--muted)", flexShrink: 0,
+                    }}>My Role</span>
+                    <span style={{
+                      fontFamily: "var(--font-mono)", fontSize: "0.72rem", color: "var(--fg)", letterSpacing: "0.03em",
+                    }}>{project.archivalEvidence.role}</span>
+                  </div>
+                  {project.archivalEvidence.myContributions && (
+                    <div style={{ display: "flex", gap: "0.6rem", flexWrap: "wrap", alignItems: "flex-start" }}>
+                      <span style={{
+                        fontFamily: "var(--font-mono)", fontSize: "0.6rem", letterSpacing: "0.08em",
+                        textTransform: "uppercase", color: "var(--muted)", flexShrink: 0, paddingTop: "0.1rem",
+                      }}>Focus</span>
+                      <div style={{ display: "flex", flexWrap: "wrap", gap: "0.3rem" }}>
+                        {project.archivalEvidence.myContributions.map((c, i) => (
+                          <span key={i} style={{
+                            fontFamily: "var(--font-mono)", fontSize: "0.6rem", letterSpacing: "0.06em",
+                            padding: "0.15rem 0.5rem", border: "1px solid var(--border)",
+                            borderRadius: "0.25rem", color: "var(--muted)",
+                          }}>{c}</span>
+                        ))}
+                      </div>
+                    </div>
+                  )}
                 </div>
 
                 {/* Figures */}

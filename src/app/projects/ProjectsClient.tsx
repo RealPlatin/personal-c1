@@ -24,32 +24,34 @@ const projects: Project[] = [
   },
   {
     title: "nokk-it",
-    version: "B2B Ticketing System · Hausmesse 2022",
+    version: "B2B Ticketing System · Team Project · Hausmesse 2022",
     tags: ["PHP 8.1", "MySQL", "Bootstrap 5.2", "GitHub Webhooks", "HTML", "CSS"],
-    desc: "A production-ready B2B ticketing solution developed for the Hausmesse 2022. Successfully deployed to demonstrate real-time support workflows. While the codebase is now archived privately, the following documentation captures the UI/UX and system architecture verified by SICK AG, BadenIT, and Uniklinik Mannheim.",
+    desc: "A collaborative full-stack B2B solution developed by a team of three for the Hausmesse 2022 trade fair. The system was designed to bridge the communication gap between customers and administrators with real-time tracking. Successfully deployed and verified by industry supervisors.",
     href: "#",
     status: "Archived / Private",
     archivalEvidence: {
-      role: "Project Lead · UI/UX Design · Backend Architecture (PHP 8.1)",
+      team: ["Friedrich Gröger", "Marten Nieberle", "Marc von Gehlen"],
+      role: "Project Lead · UI/UX Design · Frontend Architecture",
+      myContributions: ["Bootstrap 5.2 UI", "GitHub Webhooks CI/CD", "Project Management", "Documentation"],
       figures: [
         {
           label: "Landing Page",
-          caption: "Public-facing portal (nokk-it.com) with a responsive Bootstrap 5.2 layout.",
+          caption: "The team's landing page design — public-facing portal (nokk-it.com) with a responsive Bootstrap 5.2 layout.",
           image: "/images/projects/LandingPage.png",
         },
         {
           label: "Admin Dashboard",
-          caption: "Internal management interface featuring real-time KPI tracking and category filters.",
+          caption: "Our custom admin dashboard implementation featuring real-time KPI tracking and category filters.",
           image: "/images/projects/TicketDashboard.png",
         },
         {
           label: "Welcome Hub",
-          caption: "The TICK-IT product hub, demonstrating role-based access and account management.",
+          caption: "Integrated Product Hub developed by the team — TICK-IT welcome screen with role-based access and account management.",
           image: "/images/projects/WelcomePage.png",
         },
       ],
       validationNote:
-        "Finalist — Walter-Rathenau-Gewerbeschule Hausmesse 2022. Verified by SICK AG, BadenIT, and Uniklinik Mannheim. Source code archived for security and proprietary reasons.",
+        "Finalist — Walter-Rathenau-Gewerbeschule Hausmesse 2022. Evaluated and verified by supervisors from SICK AG, BadenIT, and Uniklinik Mannheim. Codebase archived privately by the team following the successful 2022 deployment.",
     },
   },
   {
