@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useEffect } from "react";
+import { useAnimation } from "framer-motion";
 import Link from "next/link";
 import { motion } from "framer-motion";
 import TagBadge from "@/components/TagBadge";
@@ -50,11 +51,26 @@ const fadeUp = {
 
 export default function ProjectsClient() {
   const [selected, setSelected] = useState<Project | null>(null);
+  const mnaControls = useAnimation();
 
   useEffect(() => {
-    if (window.location.hash === "#sourcing-engine") {
+    mnaControls.start("visible");
+
+    if (window.location.hash === "#project-sourcing") {
       const project = projects.find(p => p.title === "Autonomous M&A Sourcing Engine");
       if (project) setSelected(project);
+
+      setTimeout(() => {
+        mnaControls.start({
+          scale: [1, 1.02, 1],
+          boxShadow: [
+            "0 0 0 0px rgba(200,96,42,0)",
+            "0 0 0 2px rgba(200,96,42,0.55), 0 8px 32px rgba(200,96,42,0.14)",
+            "0 0 0 0px rgba(200,96,42,0)",
+          ],
+          transition: { duration: 1.8, ease: "easeOut", times: [0, 0.18, 1] },
+        });
+      }, 600);
     }
   }, []);
 
@@ -90,12 +106,12 @@ export default function ProjectsClient() {
           {projects.map((p, i) => (
             <motion.div
               key={p.title}
-              id={p.title === "Autonomous M&A Sourcing Engine" ? "sourcing-engine" : undefined}
+              id={p.title === "Autonomous M&A Sourcing Engine" ? "project-sourcing" : undefined}
               layoutId={`project-${p.title}`}
               custom={i}
               variants={fadeUp}
               initial="hidden"
-              animate="visible"
+              animate={p.title === "Autonomous M&A Sourcing Engine" ? mnaControls : "visible"}
               onClick={() => setSelected(p)}
               style={{
                 display: "block",
@@ -106,6 +122,7 @@ export default function ProjectsClient() {
                 transition: "border-color 0.2s, background 0.2s",
                 cursor: "pointer",
                 ...(p.title === "Autonomous M&A Sourcing Engine" ? { scrollMarginTop: "6rem" } : {}),
+                minWidth: 0,
               }}
             >
               <div

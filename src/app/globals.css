@@ -26,12 +26,23 @@
   --font-mono:      var(--font-mono);
 }
 
+/* ─── Card Highlight Animation ───────────────────────────────── */
+@keyframes card-highlight {
+  0%   { box-shadow: none; transform: scale(1); }
+  18%  { box-shadow: 0 0 0 2px rgba(200, 96, 42, 0.55), 0 8px 32px rgba(200, 96, 42, 0.14); transform: scale(1.02); }
+  100% { box-shadow: none; transform: scale(1); }
+}
+.card-highlight {
+  animation: card-highlight 2s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+}
+
 /* ─── Base Reset ─────────────────────────────────────────────── */
 *, *::before, *::after { box-sizing: border-box; }
 
 html {
   scroll-behavior: smooth;
   -webkit-font-smoothing: antialiased;
+  overflow-x: hidden;
 }
 
 body {
@@ -131,9 +142,9 @@ code, pre {
 @media (max-width: 540px) {
   .timeline-row {
     grid-template-columns: 1fr !important;
-    padding-left: 1.25rem;
+    padding-left: 2rem;
   }
   .timeline-period { text-align: left !important; padding-right: 0 !important; }
-  .timeline-line   { display: none !important; }
-  .timeline-dot    { left: 0 !important; }
+  .timeline-line   { left: 0.6rem !important; display: block !important; }
+  .timeline-dot    { left: calc(0.6rem - 4px) !important; }
 }

@@ -81,6 +81,7 @@ export default function ArchiveToggle({ papers }: { papers: Paper[] }) {
                     border: "1px solid var(--border)",
                     borderRadius: "0.75rem",
                     background: "rgba(26,20,16,0.015)",
+                    minWidth: 0,
                     display: "flex",
                     flexDirection: "column",
                   }}

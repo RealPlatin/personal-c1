@@ -49,7 +49,7 @@ export default function RootLayout({
       </head>
       <body style={{ display: "flex", flexDirection: "column", minHeight: "100vh" }}>
         <Nav />
-        <main style={{ paddingTop: "4.5rem", flex: 1 }}>{children}</main>
+        <main style={{ paddingTop: "4.5rem", flex: 1, width: "100%", overflowX: "hidden" }}>{children}</main>
         <Footer />
       </body>
     </html>

@@ -8,6 +8,7 @@ const links = [
   { href: "/about", label: "About" },
   { href: "/projects", label: "Projects" },
   { href: "/writing", label: "Writing" },
+  { href: "/insights", label: "Insights" },
 ];
 
 export default function Nav() {
@@ -170,14 +171,16 @@ export default function Nav() {
           top: "3.75rem",
           left: 0,
           right: 0,
+          bottom: 0,
+          minHeight: "calc(100dvh - 3.75rem)",
           zIndex: 99,
           background: "rgba(245,240,232,0.97)",
           backdropFilter: "blur(12px)",
           WebkitBackdropFilter: "blur(12px)",
-          borderBottom: "1px solid var(--border)",
-          padding: "1.5rem clamp(1.25rem, 5vw, 3rem)",
+          padding: "3rem clamp(1.25rem, 5vw, 3rem) 2rem",
           flexDirection: "column",
-          gap: "1.25rem",
+          justifyContent: "center",
+          gap: "2rem",
         }}
       >
         {links.map(({ href, label }) => (
@@ -186,8 +189,8 @@ export default function Nav() {
             href={href}
             style={{
               fontFamily: "var(--font-mono)",
-              fontSize: "0.85rem",
-              letterSpacing: "0.1em",
+              fontSize: "1rem",
+              letterSpacing: "0.12em",
               textTransform: "uppercase",
               color: pathname === href ? "var(--accent)" : "var(--fg)",
             }}

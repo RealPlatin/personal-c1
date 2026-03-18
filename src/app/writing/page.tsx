@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import ArchiveToggle from "./ArchiveToggle";
+import HighlightCard from "@/components/HighlightCard";
 
 export const metadata: Metadata = {
   title: "Writing | Marc von Gehlen",
@@ -44,26 +45,54 @@ const substackPosts = [
   },
 ];
 
-const featuredPapers = [
+type FeaturedPaper = {
+  title: string;
+  year: string;
+  year2: string | null;
+  grade: string | null;
+  level: string;
+  file: string | null;
+  file2: string | null;
+  cardId: string | null;
+  subtitle: string | null;
+  description: string | null;
+  buttons: { label: string; href: string }[] | null;
+};
+
+const featuredPapers: FeaturedPaper[] = [
   {
     title: "The Geopolitics of Microchips",
     year: "2025", year2: null, grade: null, level: "High School",
     file: null, file2: "/papers/microchip-geopolitics.pptx",
+    cardId: null, subtitle: null, description: null, buttons: null,
   },
   {
     title: "Life Cycle Analysis: Electric Vehicles as a Sustainable Alternative?",
     year: "2025", year2: null, grade: null, level: "High School",
-    file: "/papers/ev-analysis.pdf", file2: "/papers/ev-presentation.pptx",
+    file: "/papers/Projektarbeit E-Autos Marc von Gehlen.pdf", file2: "/papers/ev-presentation.pptx",
+    cardId: "research-ev", subtitle: null,
+    description: "Wissenschaftliche Projektarbeit (Berufskolleg) über die ökologische Bilanz von Elektrofahrzeugen. Tiefgehende Untersuchung des gesamten Lebenszyklus – von der Lithium-Gewinnung bis hin zu modernen Recycling-Verfahren.",
+    buttons: null,
   },
   {
     title: "Secure Your Future: Strategies for Private Retirement Planning",
     year: "2025", year2: null, grade: null, level: "High School",
-    file: "/papers/retirement-strategies.pptx", file2: null,
+    file: "/papers/Sicher_in_die_Zukunft.pptx", file2: null,
+    cardId: null,
+    subtitle: "VWL Project | Kooperation mit Lea",
+    description: "Interdisziplinäres Projekt zur Analyse des deutschen Rentensystems. Untersuchung von Inflationsdynamiken und die mathematische Demonstration des Zinseszins-Effekts durch S&P 500 Backtesting (Kooperation mit Lea).",
+    buttons: null,
   },
   {
     title: "Bitcoin: Technical Foundation & Economic Implications",
-    year: "2018", year2: "2025", grade: null, level: "High School",
-    file: "/papers/bitcoin.docx", file2: "/papers/bitcoin-2025.pptx",
+    year: "2018", year2: "2025", grade: null, level: "Gymnasium",
+    file: null, file2: null,
+    cardId: null, subtitle: null,
+    description: "Eine zweistufige Analyse der Blockchain-Technologie: Von der ersten ökonomischen Einordnung bis zur detaillierten technischen Ausarbeitung im Rahmen einer GFS in der 12. Klasse.",
+    buttons: [
+      { label: "Präsentation 1 (Grundlagen) ↓", href: "/papers/bitcoin-2025.pptx" },
+      { label: "Präsentation 2 (Technische GFS) ↓", href: "/papers/Bitcoin.pptx" },
+    ],
   },
 ];
 
@@ -237,8 +266,9 @@ export default function WritingPage() {
               pdf: null as string | null,
             },
           ].map((paper) => (
-            <div
+            <HighlightCard
               key={paper.title}
+              id="leadership-sico"
               style={{
                 padding: "1.75rem",
                 border: "1px solid var(--border)",
@@ -320,7 +350,7 @@ export default function WritingPage() {
                   </a>
                 )}
               </div>
-            </div>
+            </HighlightCard>
           ))}
         </div>
       </div>
@@ -341,8 +371,9 @@ export default function WritingPage() {
         }}
       >
         {featuredPapers.map((paper) => (
-          <div
+          <HighlightCard
             key={paper.title}
+            id={paper.cardId ?? paper.title.replace(/[^a-z0-9]/gi, "-").toLowerCase()}
             style={{
               padding: "1.75rem",
               border: "1px solid var(--border)",
@@ -416,39 +447,69 @@ export default function WritingPage() {
                 ))}
               </div>
             </div>
+            {paper.subtitle && (
+              <p style={{ margin: "0.5rem 0 0", fontFamily: "var(--font-mono)", fontSize: "0.62rem", letterSpacing: "0.06em", color: "var(--muted)", textTransform: "uppercase" }}>
+                {paper.subtitle}
+              </p>
+            )}
+            {paper.description && (
+              <p style={{ margin: "0.6rem 0 0", fontSize: "0.88rem", color: "var(--muted)", lineHeight: 1.6, maxWidth: "52ch" }}>
+                {paper.description}
+              </p>
+            )}
             <div style={{ display: "flex", gap: "1rem", marginTop: "auto", paddingTop: "1rem", flexWrap: "wrap" }}>
-              {paper.file && (
-                <a
-                  href={paper.file}
-                  download
-                  style={{
-                    fontFamily: "var(--font-mono)",
-                    fontSize: "0.62rem",
-                    letterSpacing: "0.08em",
-                    textTransform: "uppercase",
-                    color: "var(--accent)",
-                  }}
-                >
-                  {primaryLabel(paper.file, !!paper.file2)}
-                </a>
-              )}
-              {paper.file2 && (
-                <a
-                  href={paper.file2}
-                  download
-                  style={{
-                    fontFamily: "var(--font-mono)",
-                    fontSize: "0.62rem",
-                    letterSpacing: "0.08em",
-                    textTransform: "uppercase",
-                    color: "var(--accent)",
-                  }}
-                >
-                  Presentation ↓
-                </a>
-              )}
+              {paper.buttons
+                ? paper.buttons.map((btn) => (
+                    <a
+                      key={btn.label}
+                      href={btn.href}
+                      download
+                      style={{
+                        fontFamily: "var(--font-mono)",
+                        fontSize: "0.62rem",
+                        letterSpacing: "0.08em",
+                        textTransform: "uppercase",
+                        color: "var(--accent)",
+                      }}
+                    >
+                      {btn.label}
+                    </a>
+                  ))
+                : <>
+                    {paper.file && (
+                      <a
+                        href={paper.file}
+                        download
+                        style={{
+                          fontFamily: "var(--font-mono)",
+                          fontSize: "0.62rem",
+                          letterSpacing: "0.08em",
+                          textTransform: "uppercase",
+                          color: "var(--accent)",
+                        }}
+                      >
+                        {primaryLabel(paper.file, !!paper.file2)}
+                      </a>
+                    )}
+                    {paper.file2 && (
+                      <a
+                        href={paper.file2}
+                        download
+                        style={{
+                          fontFamily: "var(--font-mono)",
+                          fontSize: "0.62rem",
+                          letterSpacing: "0.08em",
+                          textTransform: "uppercase",
+                          color: "var(--accent)",
+                        }}
+                      >
+                        Presentation ↓
+                      </a>
+                    )}
+                  </>
+              }
             </div>
-          </div>
+          </HighlightCard>
         ))}
       </div>
 

@@ -19,14 +19,14 @@ const timeline: TimelineItem[] = [
     role: "Founded and Led",
     org: "SICO — Student Investment-Club Offenburg",
     desc: "Founded the first cross-faculty investment initiative at Hochschule Offenburg.",
-    link: { label: "View Leadership & Research →", href: "/writing#sico" },
+    link: { label: "View Leadership & Research →", href: "/writing#leadership-sico" },
   },
   {
     period: "01/2026 – 03/2026",
     role: "M&A Analyst (Intern)",
     org: "De Bruyn Capital",
     desc: "Built an AI-assisted sourcing pipeline that achieved a 95% cost reduction and reduced research time from 15–30 minutes to under 30 seconds per target. Automated deal flow from discovery to financial screening across the European SME market.",
-    link: { label: "View Project →", href: "/projects#sourcing-engine" },
+    link: { label: "View Project →", href: "/projects#project-sourcing" },
   },
   {
     period: "2025 – Present",
@@ -47,7 +47,7 @@ const timeline: TimelineItem[] = [
         ],
       },
     ],
-    link: { label: "View Research →", href: "/writing#ev-research" },
+    link: { label: "View Research →", href: "/writing#research-ev" },
   },
   {
     period: "2023",
