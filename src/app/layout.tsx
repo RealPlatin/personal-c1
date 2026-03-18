@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import Nav from "@/components/Nav";
 import Footer from "@/components/Footer";
+import ConsoleEgg from "@/components/ConsoleEgg";
 import "./globals.css";
 
 export const metadata: Metadata = {
@@ -48,6 +49,7 @@ export default function RootLayout({
         />
       </head>
       <body style={{ display: "flex", flexDirection: "column", minHeight: "100vh" }}>
+        <ConsoleEgg />
         <Nav />
         <main style={{ paddingTop: "4.5rem", flex: 1, width: "100%", overflowX: "hidden" }}>{children}</main>
         <Footer />

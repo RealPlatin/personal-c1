@@ -24,11 +24,33 @@ const projects: Project[] = [
   },
   {
     title: "nokk-it",
-    version: "Private Project / MVP",
-    tags: ["SQL", "Bootstrap", "HTML", "CSS", "JavaScript"],
-    desc: "A custom B2B ticketing system prototype with dashboard analytics and role-based access management.",
+    version: "B2B Ticketing System · Hausmesse 2022",
+    tags: ["PHP 8.1", "MySQL", "Bootstrap 5.2", "GitHub Webhooks", "HTML", "CSS"],
+    desc: "A production-ready B2B ticketing solution developed for the Hausmesse 2022. Successfully deployed to demonstrate real-time support workflows. While the codebase is now archived privately, the following documentation captures the UI/UX and system architecture verified by SICK AG, BadenIT, and Uniklinik Mannheim.",
     href: "#",
-    status: "MVP",
+    status: "Archived / Private",
+    archivalEvidence: {
+      role: "Project Lead · UI/UX Design · Backend Architecture (PHP 8.1)",
+      figures: [
+        {
+          label: "Landing Page",
+          caption: "Public-facing portal (nokk-it.com) with a responsive Bootstrap 5.2 layout.",
+          image: "/images/projects/LandingPage.png",
+        },
+        {
+          label: "Admin Dashboard",
+          caption: "Internal management interface featuring real-time KPI tracking and category filters.",
+          image: "/images/projects/TicketDashboard.png",
+        },
+        {
+          label: "Welcome Hub",
+          caption: "The TICK-IT product hub, demonstrating role-based access and account management.",
+          image: "/images/projects/WelcomePage.png",
+        },
+      ],
+      validationNote:
+        "Finalist — Walter-Rathenau-Gewerbeschule Hausmesse 2022. Verified by SICK AG, BadenIT, and Uniklinik Mannheim. Source code archived for security and proprietary reasons.",
+    },
   },
   {
     title: "Banner-Tool",
@@ -162,8 +184,9 @@ export default function ProjectsClient() {
                     fontSize: "0.68rem",
                     letterSpacing: "0.1em",
                     textTransform: "uppercase",
-                    color: "var(--accent)",
-                    background: "rgba(200,96,42,0.1)",
+                    color: p.status === "Archived / Private" ? "var(--muted)" : "var(--accent)",
+                    background: p.status === "Archived / Private" ? "rgba(100,100,100,0.08)" : "rgba(200,96,42,0.1)",
+                    border: p.status === "Archived / Private" ? "1px solid var(--border)" : "none",
                     padding: "0.2rem 0.6rem",
                     borderRadius: "1rem",
                     flexShrink: 0,

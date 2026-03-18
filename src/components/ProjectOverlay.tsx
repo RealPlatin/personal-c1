@@ -14,6 +14,11 @@ export type Project = {
   status: string;
   liveHref?: string;
   showWorkflow?: boolean;
+  archivalEvidence?: {
+    role: string;
+    figures: { label: string; caption: string; image?: string }[];
+    validationNote: string;
+  };
   caseStudy?: {
     problem: string;
     solution: string;
@@ -126,8 +131,9 @@ export default function ProjectOverlay({
                     fontSize: "0.68rem",
                     letterSpacing: "0.1em",
                     textTransform: "uppercase",
-                    color: "var(--accent)",
-                    background: "rgba(200,96,42,0.1)",
+                    color: project.status === "Archived / Private" ? "var(--muted)" : "var(--accent)",
+                    background: project.status === "Archived / Private" ? "rgba(100,100,100,0.08)" : "rgba(200,96,42,0.1)",
+                    border: project.status === "Archived / Private" ? "1px solid var(--border)" : "none",
                     padding: "0.2rem 0.6rem",
                     borderRadius: "1rem",
                   }}
@@ -213,6 +219,127 @@ export default function ProjectOverlay({
                     </span>
                   </div>
                 ))}
+              </div>
+            )}
+
+            {/* Archival Evidence */}
+            {project.archivalEvidence && (
+              <div style={{
+                margin: "0 0 2rem",
+                paddingTop: "1.25rem",
+                borderTop: "1px solid var(--border)",
+              }}>
+                <div style={{
+                  fontFamily: "var(--font-mono)",
+                  fontSize: "0.62rem",
+                  letterSpacing: "0.1em",
+                  textTransform: "uppercase",
+                  color: "var(--muted)",
+                  marginBottom: "0.9rem",
+                }}>
+                  Project Evidence
+                </div>
+
+                {/* Role */}
+                <div style={{
+                  display: "flex",
+                  gap: "0.5rem",
+                  alignItems: "baseline",
+                  marginBottom: "1rem",
+                  flexWrap: "wrap",
+                }}>
+                  <span style={{
+                    fontFamily: "var(--font-mono)",
+                    fontSize: "0.62rem",
+                    letterSpacing: "0.08em",
+                    textTransform: "uppercase",
+                    color: "var(--muted)",
+                    flexShrink: 0,
+                  }}>Role</span>
+                  <span style={{
+                    fontFamily: "var(--font-mono)",
+                    fontSize: "0.72rem",
+                    color: "var(--fg)",
+                    letterSpacing: "0.03em",
+                  }}>{project.archivalEvidence.role}</span>
+                </div>
+
+                {/* Figures */}
+                <div style={{ display: "flex", flexDirection: "column", gap: "0.75rem", marginBottom: "1rem" }}>
+                  {project.archivalEvidence.figures.map((fig, i) => (
+                    <div key={i} style={{
+                      display: "flex",
+                      flexDirection: "column",
+                      background: "rgba(26,20,16,0.06)",
+                      border: "1px solid var(--border)",
+                      borderRadius: "0.375rem",
+                      overflow: "hidden",
+                    }}>
+                      {fig.image && (
+                        <a
+                          href={fig.image}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          title="View full size"
+                          style={{ display: "block", cursor: "zoom-in" }}
+                        >
+                          {/* eslint-disable-next-line @next/next/no-img-element */}
+                          <img
+                            src={fig.image}
+                            alt={fig.label}
+                            style={{
+                              width: "100%",
+                              height: "auto",
+                              display: "block",
+                              borderBottom: "1px solid var(--border)",
+                              transition: "opacity 0.15s",
+                            }}
+                            onMouseEnter={(e) => (e.currentTarget.style.opacity = "0.85")}
+                            onMouseLeave={(e) => (e.currentTarget.style.opacity = "1")}
+                          />
+                        </a>
+                      )}
+                      <div style={{ padding: "0.5rem 0.75rem", display: "flex", gap: "0.75rem", alignItems: "flex-start" }}>
+                        <span style={{
+                          fontFamily: "var(--font-mono)",
+                          fontSize: "0.6rem",
+                          letterSpacing: "0.08em",
+                          textTransform: "uppercase",
+                          color: "var(--muted)",
+                          flexShrink: 0,
+                          paddingTop: "0.15rem",
+                          minWidth: "3rem",
+                        }}>Fig {i + 1}</span>
+                        <div style={{ minWidth: 0 }}>
+                          <div style={{
+                            fontFamily: "var(--font-mono)",
+                            fontSize: "0.68rem",
+                            color: "var(--fg)",
+                            marginBottom: "0.15rem",
+                          }}>{fig.label}</div>
+                          <div style={{
+                            fontSize: "0.78rem",
+                            color: "var(--muted)",
+                            lineHeight: 1.5,
+                          }}>{fig.caption}</div>
+                        </div>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+
+                {/* Validation Note */}
+                <p style={{
+                  margin: 0,
+                  fontSize: "0.78rem",
+                  color: "var(--muted)",
+                  lineHeight: 1.6,
+                  fontStyle: "italic",
+                  borderLeft: "2px solid var(--border)",
+                  paddingLeft: "0.75rem",
+                }}>
+                  {project.archivalEvidence.validationNote}
+                </p>
               </div>
             )}
 
