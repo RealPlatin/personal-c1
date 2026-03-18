@@ -15,6 +15,7 @@ const projects: Project[] = [
     desc: "Agentic pipeline for European SME discovery. Features automated financial screening, duplicate detection, and contact extraction. Reduced research time from 20 min to <30s per lead.",
     href: "https://github.com/RealPlatin/sourcingAgent",
     status: "Active",
+    showWorkflow: true,
     caseStudy: {
       problem: "High manual effort in SME target discovery — 15–30 minutes per target, at scale.",
       solution: "Agentic AI pipeline with automated financial screening, duplicate detection, and contact extraction across the European SME market.",

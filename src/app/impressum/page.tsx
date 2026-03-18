@@ -33,7 +33,7 @@ export default function ImpressumPage() {
           <strong>Name:</strong> Marc von Gehlen
         </p>
         <p style={{ margin: "0 0 0.4rem", fontSize: "0.95rem" }}>
-          <strong>Adresse:</strong> Luisenstraße 26, 77654 Offenburg, Germany
+          <strong>Address:</strong> Luisenstraße 26, 77654 Offenburg, Germany
         </p>
         <p style={{ margin: 0, fontSize: "0.95rem" }}>
           <strong>E-Mail:</strong>{" "}

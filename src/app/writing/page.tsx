@@ -71,10 +71,10 @@ const featuredPapers: FeaturedPaper[] = [
   },
   {
     title: "Life Cycle Analysis: Electric Vehicles as a Sustainable Alternative?",
-    year: "2025", year2: null, grade: null, level: "Berufskolleg",
+    year: "2025", year2: null, grade: null, level: "Vocational College",
     file: "/papers/Projektarbeit E-Autos Marc von Gehlen.pdf", file2: "/papers/ev-presentation.pptx",
     cardId: "research-ev",
-    subtitle: "Life Cycle Analysis | Berufskolleg",
+    subtitle: "Life Cycle Analysis | Vocational College",
     description: "Scientific project paper on the ecological footprint of electric vehicles. In-depth investigation of the entire life cycle – from lithium extraction to modern recycling processes.",
     buttons: null,
   },

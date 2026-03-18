@@ -3,6 +3,7 @@
 import { useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import TagBadge from "./TagBadge";
+import SourcingWorkflow from "./SourcingWorkflow";
 
 export type Project = {
   title: string;
@@ -12,6 +13,7 @@ export type Project = {
   href: string;
   status: string;
   liveHref?: string;
+  showWorkflow?: boolean;
   caseStudy?: {
     problem: string;
     solution: string;
@@ -155,6 +157,30 @@ export default function ProjectOverlay({
             <p style={{ margin: "0 0 2rem", fontSize: "1rem", lineHeight: 1.7 }}>
               {project.desc}
             </p>
+
+            {/* Sourcing Workflow */}
+            {project.showWorkflow && (
+              <div style={{ overflowX: "auto", margin: "0 0 1.5rem" }}>
+                <SourcingWorkflow />
+              </div>
+            )}
+
+            {/* Architectural Note */}
+            {project.showWorkflow && (
+              <p style={{
+                margin: "0 0 2rem",
+                fontSize: "0.8rem",
+                color: "var(--muted)",
+                lineHeight: 1.6,
+                fontStyle: "italic",
+                borderLeft: "2px solid var(--border)",
+                paddingLeft: "0.75rem",
+              }}>
+                The system employs a multi-agent orchestration layer to validate raw leads against
+                official registries (Bundesanzeiger/Companies House), ensuring a high-quality
+                target list with verified contact data.
+              </p>
+            )}
 
             {/* Case Study */}
             {project.caseStudy && (
