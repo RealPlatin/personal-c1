@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Link from "next/link";
 import { motion } from "framer-motion";
 import TagBadge from "@/components/TagBadge";
@@ -51,6 +51,13 @@ const fadeUp = {
 export default function ProjectsClient() {
   const [selected, setSelected] = useState<Project | null>(null);
 
+  useEffect(() => {
+    if (window.location.hash === "#sourcing-engine") {
+      const project = projects.find(p => p.title === "Autonomous M&A Sourcing Engine");
+      if (project) setSelected(project);
+    }
+  }, []);
+
   return (
     <>
       <div className="container section">
@@ -83,6 +90,7 @@ export default function ProjectsClient() {
           {projects.map((p, i) => (
             <motion.div
               key={p.title}
+              id={p.title === "Autonomous M&A Sourcing Engine" ? "sourcing-engine" : undefined}
               layoutId={`project-${p.title}`}
               custom={i}
               variants={fadeUp}
@@ -97,6 +105,7 @@ export default function ProjectsClient() {
                 background: "rgba(26,20,16,0.02)",
                 transition: "border-color 0.2s, background 0.2s",
                 cursor: "pointer",
+                ...(p.title === "Autonomous M&A Sourcing Engine" ? { scrollMarginTop: "6rem" } : {}),
               }}
             >
               <div

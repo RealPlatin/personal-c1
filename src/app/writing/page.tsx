@@ -13,29 +13,34 @@ export const metadata: Metadata = {
 
 const substackPosts = [
   {
+    title: "The German Findings: An Analysis of the Creeping Decline",
+    description: "From industrial hegemony to industrial museum — the collapse of Germany's economic triad.",
+    href: "https://open.substack.com/pub/marcvg1/p/der-deutsche-befund-eine-analyse",
+  },
+  {
     title: "Oil, Drones, and Geopolitical Risk",
     description: "How energy security and the Middle East shape the next decade.",
-    href: "https://marcvg1.substack.com",
+    href: "https://marcvg1.substack.com/p/ol-drohnen-und-geopolitische-risiken",
   },
   {
     title: "Grünheide: Environmental Protection or Ideological Scapegoat?",
     description: "Fact-based analysis of the Tesla Gigafactory expansion debate.",
-    href: "https://marcvg1.substack.com",
+    href: "https://marcvg1.substack.com/p/grunheide-naturschutz-oder-ideologisches",
   },
   {
     title: "The Bureaucratic Monster",
     description: "Why bureaucracy costs Germany €140B annually.",
-    href: "https://marcvg1.substack.com",
+    href: "https://marcvg1.substack.com/p/das-burokratische-monstrum-wie-sich",
   },
   {
     title: "The Missed Revolution",
     description: "The tech deficit in AI and Industry 4.0.",
-    href: "https://marcvg1.substack.com",
+    href: "https://marcvg1.substack.com/p/die-verpasste-revolution-das-tech",
   },
   {
     title: "Deindustrialization in Real Time",
     description: "Energy prices and the relocation of European industry.",
-    href: "https://marcvg1.substack.com",
+    href: "https://open.substack.com/pub/marcvg1/p/teil-2-deindustrialisierung-in-echtzeit",
   },
 ];
 
@@ -55,14 +60,14 @@ const featuredPapers = [
     year: "2025", year2: null, grade: null, level: "High School",
     file: "/papers/retirement-strategies.pptx", file2: null,
   },
+  {
+    title: "Bitcoin: Technical Foundation & Economic Implications",
+    year: "2018", year2: "2025", grade: null, level: "High School",
+    file: "/papers/bitcoin.docx", file2: "/papers/bitcoin-2025.pptx",
+  },
 ];
 
 const archivedPapers = [
-  {
-    title: "Bitcoin: Technical Foundation and Economic Implications",
-    year: "2018", year2: "2025", grade: "Grade 8", level: "Middle School",
-    file: "/papers/bitcoin.docx", file2: "/papers/bitcoin-2025.pptx",
-  },
   {
     title: "CRISPR & Genetic Engineering: Opportunities and Ethics",
     year: "2020", year2: null, grade: "Grade 10", level: "Middle School",
@@ -89,6 +94,13 @@ const archivedPapers = [
     file: "/papers/elon-musk.pdf", file2: "/papers/elon-musk.pptx",
   },
 ];
+
+function primaryLabel(filePath: string, hasPair: boolean): string {
+  if (hasPair) return "Text ↓";
+  if (filePath.endsWith(".pptx")) return "Presentation ↓";
+  if (filePath.endsWith(".docx")) return "Text ↓";
+  return "Download ↓";
+}
 
 export default function WritingPage() {
   return (
@@ -122,6 +134,12 @@ export default function WritingPage() {
       </div>
 
       {/* Substack Posts */}
+      <div id="substack" style={{ scrollMarginTop: "6rem" }}>
+      <p className="label" style={{ marginBottom: "0.75rem" }}>Essays</p>
+      <h2 style={{ margin: "0 0 1.5rem", fontSize: "clamp(1.4rem, 3vw, 1.9rem)", lineHeight: 1.2 }}>
+        Substack — Essays &amp;{" "}
+        <em style={{ color: "var(--accent)" }}>Geopolitics</em>
+      </h2>
       <ul style={{ listStyle: "none", padding: 0, margin: "0 0 2.5rem" }}>
         {substackPosts.map((post) => (
           <li
@@ -190,6 +208,7 @@ export default function WritingPage() {
           </a>
         </li>
       </ul>
+      </div>
 
       {/* SICO Section */}
       <div id="sico" style={{ marginBottom: "4rem", scrollMarginTop: "6rem" }}>
@@ -211,17 +230,10 @@ export default function WritingPage() {
         >
           {[
             {
-              title: "SICO: Einstieg & Strategie 2026",
+              title: "SICO: Oil Equity Research & Macro Strategy",
               desc: "Foundational framework for the Student Investment-Club Offenburg. Bridging the gap between academic theory and real-world capital markets.",
               year: "2026",
               slides: "/docs/Einstieg_Tag_1_SICO.pdf",
-              pdf: null as string | null,
-            },
-            {
-              title: "Sector Analysis: Energy & Deindustrialization",
-              desc: null as string | null,
-              year: "2026",
-              slides: "/papers/sico-energy-sector.pptx",
               pdf: null as string | null,
             },
           ].map((paper) => (
@@ -286,7 +298,7 @@ export default function WritingPage() {
                       borderRadius: "2rem",
                     }}
                   >
-                    View Slides ↓
+                    View Presentation (PDF) ↓
                   </a>
                 )}
                 {paper.pdf && (
@@ -314,7 +326,12 @@ export default function WritingPage() {
       </div>
 
       {/* Research & Papers */}
-      <p className="label" style={{ marginBottom: "2rem" }}>Research &amp; Papers</p>
+      <div id="ev-research" style={{ scrollMarginTop: "6rem" }}>
+      <p className="label" style={{ marginBottom: "0.75rem" }}>Research &amp; Papers</p>
+      <h2 style={{ margin: "0 0 1.5rem", fontSize: "clamp(1.4rem, 3vw, 1.9rem)", lineHeight: 1.2 }}>
+        Featured Research — Papers &amp;{" "}
+        <em style={{ color: "var(--accent)" }}>Analysis</em>
+      </h2>
       <div
         style={{
           display: "grid",
@@ -412,7 +429,7 @@ export default function WritingPage() {
                     color: "var(--accent)",
                   }}
                 >
-                  {paper.file2 ? "Text ↓" : "Download ↓"}
+                  {primaryLabel(paper.file, !!paper.file2)}
                 </a>
               )}
               {paper.file2 && (
@@ -436,6 +453,7 @@ export default function WritingPage() {
       </div>
 
       <ArchiveToggle papers={archivedPapers} />
+      </div>
     </div>
   );
 }

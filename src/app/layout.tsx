@@ -6,7 +6,7 @@ import "./globals.css";
 export const metadata: Metadata = {
   title: "Marc von Gehlen | Business Informatics",
   description: "Bridging the gap between systems and capital. M&A innovation, enterprise IT, and applied AI.",
-  keywords: ["Marc von Gehlen", "Business Informatics Offenburg", "SICO Offenburg Founder", "M&A AI Sourcing", "SICK AG IT Consultant"],
+  keywords: ["Marc von Gehlen", "Business Informatics Offenburg", "SICO Offenburg Founder", "M&A AI Sourcing", "SICK AG IT Consultant", "Oil Drones Geopolitical Risk", "Grünheide Tesla Gigafactory", "The Bureaucratic Monster Germany", "The Missed Revolution AI", "Deindustrialization Germany", "The German Findings Analysis", "Industrial Decline Germany", "Economic Triad", "Marc von Gehlen Analysis"],
   metadataBase: new URL("https://marcvongehlen.com"),
   openGraph: {
     title: "Marc von Gehlen | Business Informatics",

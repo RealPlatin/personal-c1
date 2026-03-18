@@ -1,6 +1,13 @@
 "use client";
 
 import { useState } from "react";
+
+function primaryLabel(filePath: string, hasPair: boolean): string {
+  if (hasPair) return "Text ↓";
+  if (filePath.endsWith(".pptx")) return "Presentation ↓";
+  if (filePath.endsWith(".docx")) return "Text ↓";
+  return "Download ↓";
+}
 import { motion, AnimatePresence } from "framer-motion";
 
 type Paper = {
@@ -153,7 +160,7 @@ export default function ArchiveToggle({ papers }: { papers: Paper[] }) {
                           color: "var(--accent)",
                         }}
                       >
-                        {paper.file2 ? "Text ↓" : "Download ↓"}
+                        {primaryLabel(paper.file, !!paper.file2)}
                       </a>
                     )}
                     {paper.file2 && (

@@ -18,7 +18,7 @@ const timeline: TimelineItem[] = [
     period: "2026 – Present",
     role: "Founded and Led",
     org: "SICO — Student Investment-Club Offenburg",
-    desc: "Establishing and expanding the first cross-faculty investment initiative at Hochschule Offenburg.",
+    desc: "Founded the first cross-faculty investment initiative at Hochschule Offenburg.",
     link: { label: "View Leadership & Research →", href: "/writing#sico" },
   },
   {
@@ -26,6 +26,7 @@ const timeline: TimelineItem[] = [
     role: "M&A Analyst (Intern)",
     org: "De Bruyn Capital",
     desc: "Built an AI-assisted sourcing pipeline that achieved a 95% cost reduction and reduced research time from 15–30 minutes to under 30 seconds per target. Automated deal flow from discovery to financial screening across the European SME market.",
+    link: { label: "View Project →", href: "/projects#sourcing-engine" },
   },
   {
     period: "2025 – Present",
@@ -34,10 +35,10 @@ const timeline: TimelineItem[] = [
     desc: "Dual-track degree bridging computer science and business. Focus on AI/ML applications, data management, and digital transformation.",
   },
   {
-    period: "Sep 2024 – Jul 2025",
+    period: "2024 – 2025",
     role: "University Entrance Qualification (Fachhochschulreife)",
     org: "Katholische Schule für Erwachsene Freiburg",
-    desc: "Grade 1.8 — Focus: Engineering Physics / Applied Physics. Coursework in physics, chemistry, mathematics, economics and languages. The program included a practical, research-oriented project.",
+    desc: "Grade 1.8 — Focus: Engineering Physics / Applied Physics. Coursework in physics, chemistry, mathematics, economics and languages.",
     sections: [
       {
         title: "Final project: Are electric vehicles a sustainable alternative?",
@@ -46,6 +47,7 @@ const timeline: TimelineItem[] = [
         ],
       },
     ],
+    link: { label: "View Research →", href: "/writing#ev-research" },
   },
   {
     period: "2023",

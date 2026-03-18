@@ -122,6 +122,10 @@ code, pre {
   .mobile-nav--open { display: flex !important; }
 }
 
+@media (min-width: 768px) {
+  .mobile-nav { display: none !important; }
+}
+
 /* ─── Mobile Layout Fixes ────────────────────────────────────── */
 /* About timeline: collapse to single column on narrow screens */
 @media (max-width: 540px) {
