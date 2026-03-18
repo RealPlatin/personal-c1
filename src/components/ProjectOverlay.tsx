@@ -38,25 +38,26 @@ export default function ProjectOverlay({
   return (
     <AnimatePresence>
       {project && (
-        <>
-          {/* Backdrop */}
-          <motion.div
-            key="backdrop"
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            transition={{ duration: 0.2 }}
-            onClick={onClose}
-            style={{
-              position: "fixed",
-              inset: 0,
-              background: "rgba(26,20,16,0.55)",
-              backdropFilter: "blur(4px)",
-              WebkitBackdropFilter: "blur(4px)",
-              zIndex: 200,
-            }}
-          />
-
+        <motion.div
+          key="backdrop"
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          exit={{ opacity: 0 }}
+          transition={{ duration: 0.2 }}
+          onClick={onClose}
+          style={{
+            position: "fixed",
+            inset: 0,
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
+            padding: "1rem",
+            background: "rgba(26,20,16,0.55)",
+            backdropFilter: "blur(4px)",
+            WebkitBackdropFilter: "blur(4px)",
+            zIndex: 200,
+          }}
+        >
           {/* Panel */}
           <motion.div
             key="panel"
@@ -68,18 +69,17 @@ export default function ProjectOverlay({
             animate={{ opacity: 1, scale: 1 }}
             exit={{ opacity: 0, scale: 0.96 }}
             transition={{ duration: 0.28, ease: [0.4, 0, 0.2, 1] }}
+            onClick={(e) => e.stopPropagation()}
             style={{
-              position: "fixed",
-              top: "50%",
-              left: "50%",
-              transform: "translate(-50%, -50%)",
-              width: "min(640px, calc(100vw - 2rem))",
-              maxHeight: "calc(100vh - 4rem)",
+              position: "relative",
+              width: "100%",
+              maxWidth: "600px",
+              maxHeight: "90dvh",
               overflowY: "auto",
               background: "var(--bg)",
               border: "1px solid var(--border)",
               borderRadius: "1rem",
-              padding: "2.5rem",
+              padding: "clamp(1.25rem, 5vw, 2.5rem)",
               zIndex: 201,
             }}
           >
@@ -243,7 +243,7 @@ export default function ProjectOverlay({
               )}
             </div>
           </motion.div>
-        </>
+        </motion.div>
       )}
     </AnimatePresence>
   );
