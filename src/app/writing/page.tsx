@@ -1,3 +1,16 @@
+import type { Metadata } from "next";
+import ArchiveToggle from "./ArchiveToggle";
+
+export const metadata: Metadata = {
+  title: "Writing | Marc von Gehlen",
+  description: "Essays, analysis, and research on geopolitics, economics, technology, and society.",
+  openGraph: {
+    title: "Writing | Marc von Gehlen",
+    description: "Essays, analysis, and research on geopolitics, economics, technology, and society.",
+    url: "https://marcvongehlen.com/writing",
+  },
+};
+
 const substackPosts = [
   {
     title: "Oil, Drones, and Geopolitical Risk",
@@ -26,7 +39,7 @@ const substackPosts = [
   },
 ];
 
-const researchPapers = [
+const featuredPapers = [
   {
     title: "The Geopolitics of Microchips",
     year: "2025", year2: null, grade: null, level: "High School",
@@ -42,6 +55,9 @@ const researchPapers = [
     year: "2025", year2: null, grade: null, level: "High School",
     file: "/papers/retirement-strategies.pptx", file2: null,
   },
+];
+
+const archivedPapers = [
   {
     title: "Bitcoin: Technical Foundation and Economic Implications",
     year: "2018", year2: "2025", grade: "Grade 8", level: "Middle School",
@@ -175,6 +191,128 @@ export default function WritingPage() {
         </li>
       </ul>
 
+      {/* SICO Section */}
+      <div id="sico" style={{ marginBottom: "4rem", scrollMarginTop: "6rem" }}>
+        <p className="label" style={{ marginBottom: "0.75rem" }}>Investment Club</p>
+        <h2 style={{ margin: "0 0 1rem", fontSize: "clamp(1.4rem, 3vw, 1.9rem)", lineHeight: 1.2 }}>
+          SICO — Investment Research &amp;{" "}
+          <em style={{ color: "var(--accent)" }}>Leadership</em>
+        </h2>
+        <p style={{ margin: "0 0 2rem", maxWidth: "58ch", fontSize: "0.95rem", color: "var(--muted)", lineHeight: 1.7 }}>
+          Founder &amp; Lead of the first cross-faculty investment initiative at Hochschule Offenburg.
+          Focusing on macroeconomic frameworks and equity research.
+        </p>
+        <div
+          style={{
+            display: "grid",
+            gridTemplateColumns: "repeat(auto-fill, minmax(min(100%, 380px), 1fr))",
+            gap: "1.25rem",
+          }}
+        >
+          {[
+            {
+              title: "SICO: Einstieg & Strategie 2026",
+              desc: "Foundational framework for the Student Investment-Club Offenburg. Bridging the gap between academic theory and real-world capital markets.",
+              year: "2026",
+              slides: "/docs/Einstieg_Tag_1_SICO.pdf",
+              pdf: null as string | null,
+            },
+            {
+              title: "Sector Analysis: Energy & Deindustrialization",
+              desc: null as string | null,
+              year: "2026",
+              slides: "/papers/sico-energy-sector.pptx",
+              pdf: null as string | null,
+            },
+          ].map((paper) => (
+            <div
+              key={paper.title}
+              style={{
+                padding: "1.75rem",
+                border: "1px solid var(--border)",
+                borderRadius: "0.75rem",
+                background: "rgba(26,20,16,0.015)",
+                display: "flex",
+                flexDirection: "column",
+              }}
+            >
+              <div style={{ display: "flex", gap: "0.4rem", marginBottom: "0.75rem", flexWrap: "wrap" }}>
+                {["SICO", "Equity Research"].map((tag) => (
+                  <span key={tag} style={{
+                    fontFamily: "var(--font-mono)",
+                    fontSize: "0.58rem",
+                    letterSpacing: "0.08em",
+                    textTransform: "uppercase",
+                    color: "var(--accent)",
+                    background: "rgba(200,96,42,0.08)",
+                    border: "1px solid rgba(200,96,42,0.2)",
+                    padding: "0.15rem 0.5rem",
+                    borderRadius: "1rem",
+                    display: "inline-flex",
+                    alignItems: "center",
+                    justifyContent: "center",
+                  }}>
+                    {tag}
+                  </span>
+                ))}
+              </div>
+              <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start", gap: "1rem" }}>
+                <span style={{ fontFamily: "var(--font-display)", fontWeight: 700, fontSize: "1.05rem", color: "var(--fg)", lineHeight: 1.4 }}>
+                  {paper.title}
+                </span>
+                <span style={{ fontFamily: "var(--font-mono)", fontSize: "0.62rem", letterSpacing: "0.08em", color: "var(--muted)", border: "1px solid var(--border)", padding: "0.15rem 0.5rem", borderRadius: "1rem", whiteSpace: "nowrap", flexShrink: 0 }}>
+                  {paper.year}
+                </span>
+              </div>
+              {paper.desc && (
+                <p style={{ margin: "0.75rem 0 0", fontSize: "0.88rem", color: "var(--muted)", lineHeight: 1.6, maxWidth: "52ch" }}>
+                  {paper.desc}
+                </p>
+              )}
+              <div style={{ display: "flex", gap: "1rem", marginTop: "auto", paddingTop: "1.25rem", flexWrap: "wrap" }}>
+                {paper.slides && (
+                  <a
+                    href={paper.slides}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    style={{
+                      fontFamily: "var(--font-mono)",
+                      fontSize: "0.65rem",
+                      letterSpacing: "0.08em",
+                      textTransform: "uppercase",
+                      color: "var(--bg)",
+                      background: "var(--accent)",
+                      padding: "0.4rem 1rem",
+                      borderRadius: "2rem",
+                    }}
+                  >
+                    View Slides ↓
+                  </a>
+                )}
+                {paper.pdf && (
+                  <a
+                    href={paper.pdf}
+                    download
+                    style={{
+                      fontFamily: "var(--font-mono)",
+                      fontSize: "0.65rem",
+                      letterSpacing: "0.08em",
+                      textTransform: "uppercase",
+                      color: "var(--accent)",
+                      border: "1px solid var(--border)",
+                      padding: "0.4rem 1rem",
+                      borderRadius: "2rem",
+                    }}
+                  >
+                    Download PDF ↓
+                  </a>
+                )}
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+
       {/* Research & Papers */}
       <p className="label" style={{ marginBottom: "2rem" }}>Research &amp; Papers</p>
       <div
@@ -182,9 +320,10 @@ export default function WritingPage() {
           display: "grid",
           gridTemplateColumns: "repeat(auto-fill, minmax(min(100%, 380px), 1fr))",
           gap: "1.25rem",
+          marginBottom: "1.5rem",
         }}
       >
-        {researchPapers.map((paper) => (
+        {featuredPapers.map((paper) => (
           <div
             key={paper.title}
             style={{
@@ -295,6 +434,8 @@ export default function WritingPage() {
           </div>
         ))}
       </div>
+
+      <ArchiveToggle papers={archivedPapers} />
     </div>
   );
 }

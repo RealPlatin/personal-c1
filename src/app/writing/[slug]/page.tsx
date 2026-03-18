@@ -11,7 +11,16 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
   const { slug } = await params;
   const post = getPost(slug);
   if (!post) return {};
-  return { title: post.meta.title, description: post.meta.description };
+  return {
+    title: `${post.meta.title} | Marc von Gehlen`,
+    description: post.meta.description,
+    openGraph: {
+      title: post.meta.title,
+      description: post.meta.description,
+      url: `https://marcvongehlen.com/writing/${slug}`,
+      type: "article" as const,
+    },
+  };
 }
 
 const mdxComponents = {

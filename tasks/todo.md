@@ -26,7 +26,19 @@
 - [x] Task 12 — About: Timeline animation → whileInView + sequential stagger (scroll-triggered)
 - [x] Task 13 — About: Correct timeline content (6 entries, no "M&A Analyst & AI Engineer")
 
-## Result
+## Mobile-First + SEO Audit (2026-03-18)
+
+- [x] Step 1 — Burger menu: Nav.tsx converted with useState menuOpen, hamburger SVG, `.nav-links`/`.burger-btn`/`.mobile-nav` CSS classes, closes on route change
+- [x] Step 2 — Root OpenGraph + Twitter metadata in layout.tsx, metadataBase set to marcvongehlen.com
+- [x] Step 3 — Per-page metadata: about, projects, writing, lab, impressum all export `metadata`; writing/[slug] generateMetadata enhanced with OG
+- [x] Step 4 — ARIA fixes: ProjectOverlay gets role="dialog" aria-modal aria-label; Nav gets aria-label="Main navigation" + aria-label="Contact"; Hero 3D canvas wrapper gets aria-hidden
+- [x] Step 5 — Mobile layout: burger/nav CSS in globals.css; timeline-row CSS classes added for narrow-screen collapse
+- [x] Extraction: AboutClient.tsx + ProjectsClient.tsx created so page.tsx files remain server components
+
+## Result (post-audit)
+Clean production build — 10 routes, all statically pre-rendered:
+
+## Previous Result
 Clean production build — 8 routes, all statically pre-rendered:
 - `/` — Hero + 3D scene
 - `/about` — Bio + corrected animated timeline

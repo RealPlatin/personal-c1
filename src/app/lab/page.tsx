@@ -1,3 +1,15 @@
+import type { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: "Lab | Marc von Gehlen",
+  description: "Experimental tools and interactive demos — ASCII Banner Generator and more.",
+  openGraph: {
+    title: "Lab | Marc von Gehlen",
+    description: "Experimental tools and interactive demos — ASCII Banner Generator and more.",
+    url: "https://marcvongehlen.com/lab",
+  },
+};
+
 export default function LabPage() {
   return (
     <div style={{ display: "flex", flexDirection: "column", height: "calc(100vh - 57px)" }}>

@@ -1,3 +1,15 @@
+import type { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: "Impressum | Marc von Gehlen",
+  description: "Legal notice and contact information for marcvongehlen.com.",
+  openGraph: {
+    title: "Impressum | Marc von Gehlen",
+    description: "Legal notice and contact information for marcvongehlen.com.",
+    url: "https://marcvongehlen.com/impressum",
+  },
+};
+
 export default function ImpressumPage() {
   return (
     <div className="container section" style={{ maxWidth: "55ch" }}>

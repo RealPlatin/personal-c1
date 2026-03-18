@@ -102,6 +102,7 @@ export default function Hero() {
 
       {/* 3D Canvas */}
       <motion.div
+        aria-hidden="true"
         initial={{ opacity: 0, scale: 0.92 }}
         animate={{ opacity: 1, scale: 1 }}
         transition={{ duration: 0.8, delay: 0.2 }}

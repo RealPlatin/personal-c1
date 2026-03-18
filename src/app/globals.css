@@ -110,3 +110,26 @@ code, pre {
 ::-webkit-scrollbar { width: 6px; }
 ::-webkit-scrollbar-track { background: var(--bg); }
 ::-webkit-scrollbar-thumb { background: var(--border); border-radius: 3px; }
+
+/* ─── Burger / Mobile Nav ────────────────────────────────────── */
+/* Default (desktop): burger hidden, mobile dropdown hidden */
+.burger-btn  { display: none; }
+.mobile-nav  { display: none; }
+
+@media (max-width: 767px) {
+  .nav-links       { display: none !important; }
+  .burger-btn      { display: flex !important; }
+  .mobile-nav--open { display: flex !important; }
+}
+
+/* ─── Mobile Layout Fixes ────────────────────────────────────── */
+/* About timeline: collapse to single column on narrow screens */
+@media (max-width: 540px) {
+  .timeline-row {
+    grid-template-columns: 1fr !important;
+    padding-left: 1.25rem;
+  }
+  .timeline-period { text-align: left !important; padding-right: 0 !important; }
+  .timeline-line   { display: none !important; }
+  .timeline-dot    { left: 0 !important; }
+}

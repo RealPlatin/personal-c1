@@ -12,6 +12,11 @@ export type Project = {
   href: string;
   status: string;
   liveHref?: string;
+  caseStudy?: {
+    problem: string;
+    solution: string;
+    impact: string;
+  };
 };
 
 export default function ProjectOverlay({
@@ -55,6 +60,9 @@ export default function ProjectOverlay({
           {/* Panel */}
           <motion.div
             key="panel"
+            role="dialog"
+            aria-modal="true"
+            aria-label={project.title}
             layoutId={`project-${project.title}`}
             initial={{ opacity: 0, scale: 0.96 }}
             animate={{ opacity: 1, scale: 1 }}
@@ -147,6 +155,40 @@ export default function ProjectOverlay({
             <p style={{ margin: "0 0 2rem", fontSize: "1rem", lineHeight: 1.7 }}>
               {project.desc}
             </p>
+
+            {/* Case Study */}
+            {project.caseStudy && (
+              <div style={{
+                margin: "0 0 2rem",
+                paddingTop: "1.25rem",
+                borderTop: "1px solid var(--border)",
+                display: "flex",
+                flexDirection: "column",
+                gap: "0.9rem",
+              }}>
+                {(["problem", "solution", "impact"] as const).map((key) => (
+                  <div key={key} style={{ display: "flex", gap: "1.25rem", alignItems: "flex-start" }}>
+                    <span
+                      style={{
+                        fontFamily: "var(--font-mono)",
+                        fontSize: "0.62rem",
+                        letterSpacing: "0.1em",
+                        textTransform: "uppercase",
+                        color: "var(--accent)",
+                        flexShrink: 0,
+                        width: "5rem",
+                        paddingTop: "0.2rem",
+                      }}
+                    >
+                      {key}
+                    </span>
+                    <span style={{ fontSize: "0.88rem", color: "var(--muted)", lineHeight: 1.65, minWidth: 0 }}>
+                      {project.caseStudy![key]}
+                    </span>
+                  </div>
+                ))}
+              </div>
+            )}
 
             {/* Tags */}
             <div style={{ display: "flex", gap: "0.5rem", flexWrap: "wrap", marginBottom: "2rem" }}>
